@@ -1,6 +1,9 @@
 import React from "react";
 import style from "./styles.module.css";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+
+import TocIcon from "@material-ui/icons/Toc";
+
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -37,12 +40,12 @@ const FavoritToolTip = (props) => {
 };
 
 function CardBtns(props) {
-  const { isLogged, id } = props;
+  const { isLogged, currentMovie, isSingleMovie } = props;
 
   const classes = useStyles();
 
-  const loginClick = () => {
-    localStorage.setItem("filmId", id);
+  const unloggedClick = () => {
+    localStorage.setItem("filmId", currentMovie.id);
   };
 
   switch (isLogged) {
@@ -52,7 +55,7 @@ function CardBtns(props) {
           <FavoritToolTip title="Add to Liked">
             <button
               className={style.container__button}
-              onClick={() => console.log(id)}
+              onClick={() => console.log(currentMovie)}
             >
               <FavoriteIcon className={classes.root} fontSize="small" />
             </button>
@@ -62,15 +65,27 @@ function CardBtns(props) {
               <PlaylistAddCheckIcon className={classes.root} fontSize="small" />
             </button>
           </FavoritToolTip>
+          {isSingleMovie !== true ? (
+            <FavoritToolTip title="Movie Card">
+              <NavLink
+                to={`/movies/${currentMovie.id}`}
+                className={
+                  style.container__button + " " + style.container__cardButton
+                }
+              >
+                <TocIcon className={classes.root} fontSize="small" />
+              </NavLink>
+            </FavoritToolTip>
+          ) : null}
         </div>
       );
     case false:
       return (
         <div className={style.container + " " + style.unLogged__container}>
           <FavoritToolTip title="Log In">
-            <NavLink to="/auth/logIn" onClick={loginClick}>
+            <NavLink to="/auth/logIn" onClick={unloggedClick}>
               <button className={style.container__button}>
-                <MoreHorizIcon />
+                <MoreHorizIcon className={classes.root} />
               </button>
             </NavLink>
           </FavoritToolTip>

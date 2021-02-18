@@ -4,7 +4,11 @@ import Avatar from "@material-ui/core/Avatar";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+
 import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { db, logoutWrapper } from "../../../../../system/Setts/firebase";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,9 +29,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const setAvatarClasses = makeStyles((theme) => ({
+const setUserMenuClasses = makeStyles((theme) => ({
   avatar: {
-    backgroundColor: "green",
+    backgroundColor: "#008000",
     width: theme.spacing(5.5),
     height: theme.spacing(5.5),
   },
@@ -55,6 +59,16 @@ function User(props) {
     name: "Your Name",
   });
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const logoutHandler = logoutWrapper(logOutAction);
 
   useEffect(() => {
@@ -78,17 +92,63 @@ function User(props) {
     // eslint-disable-next-line
   }, [userData]);
 
-  const avatarClasses = setAvatarClasses();
+  const customClasses = setUserMenuClasses();
 
   return (
-    <div className={style.container} onClick={logoutHandler}>
-      <FavoritToolTip title={user.name}>
-        <Avatar
-          alt={user.name === "Your Name" ? "A" : user.name}
-          src={user.avatarLink}
-          className={avatarClasses.avatar}
-        />
-      </FavoritToolTip>
+    <div>
+      <nav className={style.container}>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          classes={{ paper: style.menu, list: style.menu__list }}
+        >
+          <NavLink
+            exact
+            className={style.nav__link}
+            to="/profile"
+            activeClassName={style.nav__link_active}
+          >
+            <MenuItem
+              onClick={handleClose}
+              classes={{ root: style.menu__item }}
+            >
+              Profile
+            </MenuItem>
+          </NavLink>
+          <NavLink
+            exact
+            className={style.nav__link}
+            to="/account"
+            activeClassName={style.nav__link_active}
+          >
+            <MenuItem
+              onClick={handleClose}
+              classes={{ root: style.menu__item }}
+            >
+              My account
+            </MenuItem>
+          </NavLink>
+          <MenuItem
+            onClick={logoutHandler}
+            classes={{ root: style.menu__item }}
+          >
+            Logout
+          </MenuItem>
+        </Menu>
+        <FavoritToolTip title={user.name}>
+          <Avatar
+            alt={user.name === "Your Name" ? "A" : user.name}
+            src={user.avatarLink}
+            className={customClasses.avatar}
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleClick}
+          />
+        </FavoritToolTip>
+      </nav>
     </div>
   );
 }

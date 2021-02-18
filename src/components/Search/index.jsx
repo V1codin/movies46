@@ -1,14 +1,14 @@
-import React from "react";
-import style from "./styles.module.css";
-import thumbnail from "../../system/img/loading_thumbnail.png";
-import scrollCalculate from "../../system/Setts/scrollCalc";
-import ratingArray from "../../system/Setts/ratingCalc";
-import Card from "../../modules/movieCard";
-import requestAtions from "../../system/Setts/requestActions/actions";
-import req from "../../system/Request/request";
+import React from 'react';
+import style from './styles.module.css';
+import thumbnail from '../../system/img/loading_thumbnail.png';
+import scrollCalculate from '../../system/Setts/scrollCalc';
+import ratingArray from '../../system/Setts/ratingCalc';
+import Card from '../../modules/movieCard';
+import requestAtions from '../../system/Setts/requestActions/actions';
+import req from '../../system/Request/request';
 
-import { connect } from "react-redux";
-import { useEffect } from "react";
+import { connect } from 'react-redux';
+import { useEffect } from 'react';
 
 const mapStateToProps = (state) => {
   return {
@@ -22,19 +22,19 @@ const mapDispatchToProps = (dispatch) => {
   return {
     moviesRatingAction: (moviesResponse) => {
       return dispatch({
-        type: "GET_MOVIES_BY_RATING",
+        type: 'GET_MOVIES_BY_RATING',
         movies: moviesResponse,
-        request: "rating",
+        request: 'rating',
       });
     },
     moviesSearchAction: (moviesResponse) => {
       return dispatch({
-        type: "GET_MOVIES_BY_SEARCH",
+        type: 'GET_MOVIES_BY_SEARCH',
         movies: moviesResponse,
-        request: "search",
+        request: 'search',
       });
     },
-    clearAction: () => dispatch({ type: "CLEAR" }),
+    clearAction: () => dispatch({ type: 'CLEAR' }),
   };
 };
 
@@ -45,7 +45,7 @@ function Search(props) {
     const checker = scrollCalculate();
 
     if (checker) {
-      console.log("FETCH ANOTHER PAGE");
+      console.log('FETCH ANOTHER PAGE');
 
       const list = requestAtions.hasOwnProperty(request)
         ? requestAtions[request](req, props)
@@ -79,6 +79,7 @@ function Search(props) {
             poster={moviePoster}
             rating={circles}
             key={item.id * Math.random() + 1}
+            isSingle={false}
           />
         );
       })}

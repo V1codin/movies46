@@ -5,6 +5,7 @@ import Pop from "../Popularity/";
 import Rate from "../Rating/";
 import Search from "../Search/";
 import Profile from "../Profile/";
+import UserAccount from "../User/";
 import Auth from "../Static/Authorization/";
 import SingleMovie from "../SingleMovie/";
 
@@ -16,6 +17,7 @@ export default function Router() {
       <Route exact path="/popular" component={Pop} />
       <Route exact path="/rating" component={Rate} />
       <Route exact path="/profile" component={Profile} />
+      <Route exact path="/account" component={UserAccount} />
       <Route exact path="/search" component={Search} />
       <Route exact path="/auth/:type" component={Auth} />
       <Route exact path="/movies/:type" component={SingleMovie} />

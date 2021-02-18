@@ -4,7 +4,8 @@
   justify-content: center;
   padding: 5px;
 }
-.logged__container > button {
+.logged__container > button,
+.container__button {
   margin-left: 10px;
 }
 
@@ -23,10 +24,17 @@
   background: #c0c0c0;
   cursor: pointer;
   border-radius: 50%;
+  color: #2634ff;
+  border-width: 2px;
 }
 .container__button:hover {
   background: #98ff5c;
 }
 .container__button:focus {
   border-color: #1eddff;
+}
+.container__cardButton {
+  border-style: outset;
+  border-color: buttonface;
+  border-image: initial;
 }

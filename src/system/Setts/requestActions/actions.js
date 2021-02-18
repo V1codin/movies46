@@ -1,4 +1,20 @@
 export default {
+  crew: (requestObject, id) => {
+    return requestObject.getCast(id);
+  },
+
+  singleMovie: (requestObject, id) => {
+    return requestObject.getMovie(id);
+  },
+
+  images: (requestObject, id) => {
+    return requestObject.getImages(id);
+  },
+
+  recommendations: (requestObject, id) => {
+    return requestObject.getRecommendations(id);
+  },
+
   rating: (requestObject, props) => {
     const {
       moviesRatingAction,

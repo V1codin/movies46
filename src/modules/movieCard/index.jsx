@@ -1,9 +1,12 @@
 import React from "react";
 import style from "./styles.module.css";
-import CardButtons from "../userBtns";
+import CardButtons from "../cardBtns";
+import SingleCard from "./components/singleMovieCard";
 
 function Card(props) {
-  const { item, poster, rating } = props;
+  const { item, poster, rating, isSingle } = props;
+
+  if (isSingle === true) return <SingleCard {...props} />;
 
   return (
     <>
@@ -28,8 +31,8 @@ function Card(props) {
           </div>
         </div>
         <div className={style.movieCard__info}>
-          <p>{item.release_date}</p>
-          <CardButtons id={item.id} />
+          <p>{item.release_date.slice(0, 4)}</p>
+          <CardButtons currentMovie={item} />
           <section>{item.overview || "Описание отсутствует"}</section>
         </div>
       </div>

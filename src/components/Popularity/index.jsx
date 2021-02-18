@@ -1,15 +1,15 @@
-import React from "react";
-import Card from "../../modules/movieCard";
-import req from "../../system/Request/request";
-import style from "./styles.module.css";
-import thumbnail from "../../system/img/loading_thumbnail.png";
-import scrollCalculate from "../../system/Setts/scrollCalc";
-import ratingArray from "../../system/Setts/ratingCalc";
-import requestAtions from "../../system/Setts/requestActions/actions";
+import React from 'react';
+import Card from '../../modules/movieCard';
+import req from '../../system/Request/request';
+import style from './styles.module.css';
+import thumbnail from '../../system/img/loading_thumbnail.png';
+import scrollCalculate from '../../system/Setts/scrollCalc';
+import ratingArray from '../../system/Setts/ratingCalc';
+import requestAtions from '../../system/Setts/requestActions/actions';
 
-import { useEffect } from "react";
-import { connect } from "react-redux";
-import { mStP, mDtP } from "./setts/connectFns";
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { mStP, mDtP } from './setts/connectFns';
 
 function App(props) {
   const { movies, request, moviesPopularityAction, clearAction } = props;
@@ -18,7 +18,7 @@ function App(props) {
     const checker = scrollCalculate();
 
     if (checker) {
-      console.log("FETCH ANOTHER PAGE");
+      console.log('FETCH ANOTHER PAGE');
 
       const list = requestAtions.hasOwnProperty(request)
         ? requestAtions[request](req, props)
@@ -59,6 +59,7 @@ function App(props) {
             poster={moviePoster}
             rating={circles}
             key={item.id * Math.random() + 1}
+            isSingle={false}
           />
         );
       })}

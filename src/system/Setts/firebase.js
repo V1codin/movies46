@@ -58,4 +58,3 @@ export const createUserDataCollation = async (userData, rootCollection) => {
     console.error("create collation error: ", e);
   }
 };
-// export const auth = db.auth;

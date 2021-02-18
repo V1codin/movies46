@@ -1,12 +1,12 @@
-import React from "react";
-import style from "./styles.module.css";
-import ErrorLoginPage from "../../modules/loginErrorPage/";
-import Card from "../../modules/movieCard/";
-import req from "../../system//Request/request";
-import ratingArray from "../../system/Setts/ratingCalc";
+import React from 'react';
+import ErrorLoginPage from '../../modules/loginErrorPage/';
+import Card from '../../modules/movieCard/';
+import req from '../../system//Request/request';
+import requestAtions from '../../system/Setts/requestActions/actions';
+import ratingArray from '../../system/Setts/ratingCalc';
 
-import { connect } from "react-redux";
-import { useState, useEffect } from "react";
+import { connect } from 'react-redux';
+import { useState, useEffect, useMemo } from 'react';
 
 const mapStateToProps = (state) => {
   return {
@@ -23,32 +23,49 @@ function SingleMovie(props) {
     movies,
   } = props;
 
-  const isLogged = localStorage.getItem("isLogged");
+  const isLogged = localStorage.getItem('isLogged');
   const [movie, setMovie] = useState({
-    rating: -1,
-    poster_path: "",
+    storage: { ...movies.find((i) => i.id === parseInt(type)) },
   });
 
   useEffect(() => {
-    const raw = movies.find((i) => i.id === parseInt(type));
-    setMovie(raw);
-  }, [movies, type]);
+    window.onscroll = null;
 
-  if (isLogged === "false") {
+    (async function () {
+      const singleMovie = await requestAtions.singleMovie(
+        req,
+        parseInt(type)
+      )();
+
+      const crew = await requestAtions.crew(req, parseInt(type))();
+      const imgUrl = req.image_url;
+      const bigResUrl = req.big_res_url;
+
+      setMovie({
+        ...movie,
+        crew,
+        singleMovie,
+        imgUrl,
+        bigResUrl,
+      });
+    })();
+    // eslint-disable-next-line
+  }, [type]);
+
+  const circles = useMemo(() => ratingArray(movie.storage.vote_average), [
+    movie.storage.vote_average,
+  ]);
+
+  if (isLogged === 'false') {
     return <ErrorLoginPage history={history} />;
   }
 
-  const moviePoster =
-    req.image_url && movie.poster_path
-      ? `${req.image_url}${movie.poster_path}`
-      : "";
-  const circles = ratingArray(movie.rating);
-
   if (movie.rating === -1) return null;
+
   return (
-    <div className={style.container}>
-      <Card item={movie} poster={moviePoster} rating={circles} styles={style} />
-    </div>
+    <>
+      <Card item={movie} rating={circles} isSingle={true} />
+    </>
   );
 }
 
