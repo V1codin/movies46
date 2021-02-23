@@ -86,18 +86,48 @@ export const loginRequest = async (
 
       const userData = doc.data();
 
+      const rawLiked = await usersCollection
+        .doc(uid)
+        .collection("movies")
+        .doc("liked")
+        .get();
+
+      const rawFav = await usersCollection
+        .doc(uid)
+        .collection("movies")
+        .doc("favorites")
+        .get();
+
+      const liked = rawLiked.data().data;
+      const favorites = rawFav.data().data;
+
+      const collaction = {
+        liked,
+        favorites,
+      };
+
       const logout = logoutHandler(logoutWrapper);
 
       db.auth().onAuthStateChanged((curUser) => {
         if (curUser) {
-          dispatch(userData);
+          dispatch({
+            type: "LOGIN",
+            userData: userData,
+          });
+
+          dispatch({
+            type: "GET_USER_MOVIES",
+            userData: collaction,
+          });
+
           localStorage.setItem("isLogged", true);
 
           const cashedId = localStorage.getItem("filmId");
           localStorage.setItem("filmId", -1);
 
           if (cashedId === null || cashedId === "-1") {
-            history.push("/");
+            // history.push("/");
+            history.push("/account");
           } else {
             history.push(`/movies/${cashedId}`);
           }

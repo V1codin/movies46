@@ -22,6 +22,7 @@ function ErrorLoginPage(props) {
   const { history } = props;
 
   const customClasses = useStyles();
+
   const click = () => {
     history.push("/auth/logIn");
   };

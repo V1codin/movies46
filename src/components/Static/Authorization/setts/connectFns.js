@@ -6,12 +6,7 @@ export const mStP = (state) => {
 
 export const mDtP = (dispatch) => {
   return {
-    loginAction: (userObj) => {
-      return dispatch({
-        type: "LOGIN",
-        userData: userObj,
-      });
-    },
+    dispatchWrapper: dispatch,
     logoutAction: () => {
       return dispatch({
         type: "LOGOUT",

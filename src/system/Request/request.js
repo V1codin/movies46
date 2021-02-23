@@ -1,10 +1,10 @@
-import apiSetts from '../../system/Setts/Api.js';
+import apiSetts from "../../system/Setts/Api.js";
 class Req {
   constructor(setts) {
     this.api_key = setts.API_KEY;
-    this.base_url = 'https://api.themoviedb.org/4/';
-    this.image_url = 'https://image.tmdb.org/t/p/w185';
-    this.big_res_url = 'https://image.tmdb.org/t/p/w1280';
+    this.base_url = "https://api.themoviedb.org/4/";
+    this.image_url = "https://image.tmdb.org/t/p/w185";
+    this.big_res_url = "https://image.tmdb.org/t/p/w1280";
     this.request_token = setts.REQUEST_TOKEN;
 
     this.config_url = setts.CONFIG_URL;
@@ -12,7 +12,7 @@ class Req {
 
     this.builded_url = this.base_url;
 
-    this.movieUrl = 'https://api.themoviedb.org/3/movie/';
+    this.movieUrl = "https://api.themoviedb.org/3/movie/";
   }
 
   getCast(id) {
@@ -23,7 +23,7 @@ class Req {
         const data = await res.json();
         return data;
       } catch (e) {
-        console.log(e);
+        console.log("getCast error", e);
       }
     };
   }
@@ -36,7 +36,7 @@ class Req {
         const data = await res.json();
         return data;
       } catch (e) {
-        console.log(e);
+        console.log("getMovie error", e);
       }
     };
   }
@@ -50,7 +50,7 @@ class Req {
         const data = await res.json();
         return data;
       } catch (e) {
-        console.log(e);
+        console.log("getImages error", e);
       }
     };
   }
@@ -64,7 +64,7 @@ class Req {
         const data = await res.json();
         return data;
       } catch (e) {
-        console.log(e);
+        console.log("getRecommendations error", e);
       }
     };
   }
@@ -79,9 +79,11 @@ class Req {
 
         if (data.results.length > 0) {
           stateFn(data.results, value);
+        } else {
+          throw Error("there is nothing to find");
         }
       } catch (e) {
-        console.log('getListFromSearch error', e);
+        console.log("getListFromSearch error", e);
       }
     };
   }
@@ -94,7 +96,7 @@ class Req {
           {
             headers: {
               Authorization: `Bearer ${this.request_token}`,
-              'Content-Type': 'application/json;charset=utf-8',
+              "Content-Type": "application/json;charset=utf-8",
             },
           }
         );
@@ -104,7 +106,7 @@ class Req {
           stateFn(data.results);
         }
       } catch (e) {
-        console.log('getListByPopularity error', e);
+        console.log("getListByPopularity error", e);
       }
     };
   }
@@ -116,7 +118,7 @@ class Req {
           {
             headers: {
               Authorization: `Bearer ${this.request_token}`,
-              'Content-Type': 'application/json;charset=utf-8',
+              "Content-Type": "application/json;charset=utf-8",
             },
           }
         );
@@ -126,7 +128,7 @@ class Req {
           stateFn(data.results);
         }
       } catch (e) {
-        console.log('getListByRating error', e);
+        console.log("getListByRating error", e);
       }
     };
   }

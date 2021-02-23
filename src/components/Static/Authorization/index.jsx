@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 
 function Auth(props) {
   const {
-    loginAction,
+    dispatchWrapper,
     logoutAction,
     isLogged,
     history,
@@ -49,11 +49,10 @@ function Auth(props) {
       signInHandler({
         setLabelState,
         createUser,
-        loginAction,
-        history,
-        loginRequest,
-        data,
 
+        history,
+
+        data,
         setError,
         errorHandler,
       });
@@ -62,7 +61,7 @@ function Auth(props) {
       loginRequest(
         data.email,
         data.password,
-        loginAction,
+        dispatchWrapper,
         history,
         errorHandler,
         setError,

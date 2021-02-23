@@ -6,7 +6,7 @@
 .menu {
   top: 50px !important;
   transform: translateX(-42px) !important;
-  background-color: transparent !important;
+  background-color: #000000a1 !important;
   padding: 5px !important;
   box-shadow: none !important;
 }
@@ -47,5 +47,9 @@
 @media (max-width: 900px) {
   .container {
     margin: 15px auto 0 auto;
+  }
+  .menu {
+    top: 56vh !important;
+    transform: translateX(-130px) !important;
   }
 }

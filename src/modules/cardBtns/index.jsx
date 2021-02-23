@@ -9,10 +9,15 @@ import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 
+import {
+  addToLikedList,
+  addToFavoritesList,
+} from "../../system/Setts/firebase";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { mStP } from "./setts/connectFns";
+import { mStP, mDtP } from "./setts/connectFns";
+import { useRef } from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -20,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-const useSylesForFav = makeStyles((theme) => ({
+const useSylesForToolTip = makeStyles((theme) => ({
   arrow: {
     color: theme.palette.common.black,
   },
@@ -33,19 +38,41 @@ const useSylesForFav = makeStyles((theme) => ({
 }));
 
 const FavoritToolTip = (props) => {
-  const classes = useSylesForFav();
+  const classes = useSylesForToolTip();
   return (
     <Tooltip arrow classes={classes} {...props} TransitionComponent={Zoom} />
   );
 };
 
 function CardBtns(props) {
-  const { isLogged, currentMovie, isSingleMovie } = props;
+  const {
+    isLogged,
+    currentMovie,
+    isSingleMovie,
+    updateLiked,
+    updateFav,
+  } = props;
 
   const classes = useStyles();
 
+  const singleMovieRef = useRef(null);
+  const logInRef = useRef(null);
+
+  const movieCardHandler = () => {
+    singleMovieRef.current.click();
+  };
+
+  const addLiked = () => {
+    addToLikedList(currentMovie, updateLiked, "liked");
+  };
+
+  const addFav = () => {
+    addToFavoritesList(currentMovie, updateFav, "favorites");
+  };
+
   const unloggedClick = () => {
     localStorage.setItem("filmId", currentMovie.id);
+    logInRef.current.click();
   };
 
   switch (isLogged) {
@@ -53,28 +80,27 @@ function CardBtns(props) {
       return (
         <div className={style.container + " " + style.logged__container}>
           <FavoritToolTip title="Add to Liked">
-            <button
-              className={style.container__button}
-              onClick={() => console.log(currentMovie)}
-            >
+            <button className={style.container__button} onClick={addLiked}>
               <FavoriteIcon className={classes.root} fontSize="small" />
             </button>
           </FavoritToolTip>
           <FavoritToolTip title="Add to Favorites">
-            <button className={style.container__button}>
+            <button className={style.container__button} onClick={addFav}>
               <PlaylistAddCheckIcon className={classes.root} fontSize="small" />
             </button>
           </FavoritToolTip>
           {isSingleMovie !== true ? (
             <FavoritToolTip title="Movie Card">
-              <NavLink
-                to={`/movies/${currentMovie.id}`}
-                className={
-                  style.container__button + " " + style.container__cardButton
-                }
+              <button
+                className={style.container__button}
+                onClick={movieCardHandler}
               >
+                <NavLink
+                  ref={singleMovieRef}
+                  to={`/movies/${currentMovie.id}`}
+                ></NavLink>
                 <TocIcon className={classes.root} fontSize="small" />
-              </NavLink>
+              </button>
             </FavoritToolTip>
           ) : null}
         </div>
@@ -83,11 +109,10 @@ function CardBtns(props) {
       return (
         <div className={style.container + " " + style.unLogged__container}>
           <FavoritToolTip title="Log In">
-            <NavLink to="/auth/logIn" onClick={unloggedClick}>
-              <button className={style.container__button}>
-                <MoreHorizIcon className={classes.root} />
-              </button>
-            </NavLink>
+            <button className={style.container__button} onClick={unloggedClick}>
+              <NavLink to="/auth/logIn" ref={logInRef}></NavLink>
+              <MoreHorizIcon className={classes.root} />
+            </button>
           </FavoritToolTip>
         </div>
       );
@@ -96,4 +121,4 @@ function CardBtns(props) {
   }
 }
 
-export default connect(mStP, null)(CardBtns);
+export default connect(mStP, mDtP)(CardBtns);

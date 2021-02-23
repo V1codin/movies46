@@ -33,8 +33,3 @@
 .container__button:focus {
   border-color: #1eddff;
 }
-.container__cardButton {
-  border-style: outset;
-  border-color: buttonface;
-  border-image: initial;
-}

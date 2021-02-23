@@ -31,9 +31,11 @@ function Card(props) {
           </div>
         </div>
         <div className={style.movieCard__info}>
-          <p>{item.release_date.slice(0, 4)}</p>
+          {item.release_date !== undefined ? (
+            <p>{item.release_date.slice(0, 4)}</p>
+          ) : null}
           <CardButtons currentMovie={item} />
-          <section>{item.overview || "Описание отсутствует"}</section>
+          <section>{item.overview || "There is no overview"}</section>
         </div>
       </div>
     </>

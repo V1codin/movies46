@@ -23,6 +23,14 @@ export const db = firebase.initializeApp(firebaseConfig, "Movies 46");
 export const firestore = db.firestore();
 export const usersCollection = firestore.collection("users");
 
+export const getUserDoc = (userId, docName) => {
+  return firestore
+    .collection("users")
+    .doc(userId)
+    .collection("movies")
+    .doc(docName);
+};
+
 export const logoutWrapper = (dispatchLogout) => {
   return async () => {
     const auth = db.auth();
@@ -30,6 +38,7 @@ export const logoutWrapper = (dispatchLogout) => {
       await auth.signOut();
       dispatchLogout();
       window.location.reload();
+
       localStorage.setItem("isLogged", false);
       console.log("signed out");
     } catch (e) {
@@ -56,5 +65,77 @@ export const createUserDataCollation = async (userData, rootCollection) => {
     });
   } catch (e) {
     console.error("create collation error: ", e);
+  }
+};
+
+const updateFireBaseMovies = async (
+  userId,
+  collectionName,
+  movie,
+  reduxUpdateCallback
+) => {
+  try {
+    const collection = await getUserDoc(userId, collectionName).get();
+
+    const { data } = collection.data();
+    if (data.every((item) => item.id !== movie.id) || data.length === 0) {
+      await getUserDoc(userId, collectionName).update({
+        data: firebase.firestore.FieldValue.arrayUnion(movie),
+      });
+      reduxUpdateCallback(movie);
+    } else {
+      console.log(`The movie is already in ${collectionName}`);
+    }
+  } catch (e) {
+    console.log(`add to ${collectionName} list error`, e);
+  }
+};
+
+export const addToLikedList = (
+  movie,
+  reduxUpdateCallback,
+  collection = "liked"
+) => {
+  const userId = db.auth().currentUser.uid;
+  updateFireBaseMovies(userId, collection, movie, reduxUpdateCallback);
+};
+
+export const addToFavoritesList = (
+  movie,
+  reduxUpdateCallback,
+  collection = "favorites"
+) => {
+  const userId = db.auth().currentUser.uid;
+  updateFireBaseMovies(userId, collection, movie, reduxUpdateCallback);
+};
+
+export const removeMovieFromList = async (
+  id,
+  collectionName,
+  reduxUpdateCallback
+) => {
+  const userId = db.auth().currentUser.uid;
+
+  try {
+    const collection = await getUserDoc(userId, collectionName).get();
+
+    const { data } = collection.data();
+
+    if (data.length !== 0) {
+      const element = data.find((item) => item.id === id);
+
+      await getUserDoc(userId, collectionName).update({
+        data: firebase.firestore.FieldValue.arrayRemove(element),
+      });
+
+      const name = collectionName.toUpperCase();
+      const type = `DELETE_${name}_MOVIE`;
+
+      reduxUpdateCallback(id, type);
+    } else {
+      throw Error("The collection is empty");
+    }
+  } catch (e) {
+    console.log(`remove from ${collectionName} list error`, e);
   }
 };

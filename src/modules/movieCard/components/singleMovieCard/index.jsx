@@ -2,15 +2,13 @@ import React from "react";
 import style from "./styles.module.css";
 import CardButtons from "../../../cardBtns";
 
+import thumbnail from "../../../../system/img/loading_thumbnail.png";
+
 function SingleCard(props) {
   const {
-    item: { storage, singleMovie, crew, imgUrl, bigResUrl },
+    item: { storage, singleMovie, crew, imgUrl, moviePoster },
     rating,
   } = props;
-
-  const moviePoster = storage.backdrop_path
-    ? `${bigResUrl}${storage.backdrop_path}`
-    : `${bigResUrl}${storage.poster_path}`;
 
   const releaseStyle =
     singleMovie?.status === "Released"
@@ -20,21 +18,25 @@ function SingleCard(props) {
   return (
     <>
       <div className={style.container}>
-        <img
-          src={moviePoster}
-          alt={storage.title}
-          className={style.moviePoster}
-        ></img>
+        {moviePoster && (
+          <img
+            src={moviePoster}
+            alt={storage?.title ?? singleMovie?.title}
+            className={style.moviePoster}
+          ></img>
+        )}
         <div className={style.movieCard}>
-          <h2>{storage.title}</h2>
-          <p className={releaseStyle}>{storage.release_date}</p>
+          <h2>{storage?.title ?? singleMovie?.title}</h2>
+          <p className={releaseStyle}>
+            {storage?.release_date ?? singleMovie?.release_date}
+          </p>
           {singleMovie?.tagline && (
             <p>
               Film Tagline: <i>{singleMovie?.tagline}</i>
             </p>
           )}
           <div className={style.movieCard__rate}>
-            <p>{storage.vote_average}</p>
+            <p>{storage?.vote_average ?? singleMovie?.vote_average}</p>
             <div style={rating[0]} className={style.rate__block}></div>
             <div style={rating[1]} className={style.rate__block}></div>
             <div style={rating[2]} className={style.rate__block}></div>
@@ -47,9 +49,15 @@ function SingleCard(props) {
             <div style={rating[9]} className={style.rate__block}></div>
           </div>
           <div className={style.movieCard__info}>
-            <CardButtons currentMovie={storage} isSingleMovie={true} />
+            <CardButtons currentMovie={singleMovie} isSingleMovie={true} />
             <section className={style.info__section}>
-              <p>{storage.overview || "There is no overview"}</p>
+              <p>
+                {storage?.overview
+                  ? storage.overview
+                  : singleMovie?.overview
+                  ? singleMovie.overview
+                  : "There is no overview"}
+              </p>
             </section>
             <h2 className={style.info__article}>Cast:</h2>
             <section className={style.info__section}>
@@ -67,7 +75,11 @@ function SingleCard(props) {
                         <i>{item.character}</i>
                       </p>
                       <img
-                        src={imgUrl + item.profile_path}
+                        src={
+                          item.profile_path
+                            ? imgUrl + item.profile_path
+                            : thumbnail
+                        }
                         alt={item.original_name}
                         className={style.info__img}
                       />

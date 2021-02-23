@@ -6,3 +6,20 @@ export const mStP = (state) => {
     isLogged: state.auth.isLogged,
   };
 };
+
+export const mDtP = (dispatch) => {
+  return {
+    updateLiked: (newMovie) => {
+      return dispatch({
+        type: "UPDATE_LIKED",
+        userData: newMovie,
+      });
+    },
+    updateFav: (newMovie) => {
+      return dispatch({
+        type: "UPDATE_FAVORITES",
+        userData: newMovie,
+      });
+    },
+  };
+};
