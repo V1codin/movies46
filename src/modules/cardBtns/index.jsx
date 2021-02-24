@@ -107,7 +107,7 @@ function CardBtns(props) {
       );
     case false:
       return (
-        <div className={style.container + " " + style.unLogged__container}>
+        <div className={style.container}>
           <FavoritToolTip title="Log In">
             <button className={style.container__button} onClick={unloggedClick}>
               <NavLink to="/auth/logIn" ref={logInRef}></NavLink>

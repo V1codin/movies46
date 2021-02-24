@@ -61,10 +61,9 @@ function SingleMovie(props) {
     movie.singleMovie,
   ]);
 
-  if (isLogged === "false") {
+  if (isLogged === "false" || isLogged === null) {
     return <ErrorLoginPage history={history} />;
   }
-
   if (movie.rating === -1) return null;
 
   return (

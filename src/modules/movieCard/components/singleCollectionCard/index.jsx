@@ -23,20 +23,27 @@ import { removeMovieFromList } from "../../../../system/Setts/firebase";
 
 const useStyles = makeStyles(() => ({
   gridCard: {
-    margin: "5px 5px 0 0",
+    margin: "15px 0 0 0",
     minHeight: "375px !important",
     width: "unset !important",
   },
+  gridTile: {
+    height: "inherit",
+    display: "block",
+    overflow: "visible",
+    position: "relative",
+  },
+
   gridImg: {
-    top: "50% !important",
-    left: "0 !important",
-    width: "100% !important",
-    height: "75% !important",
-    position: "relative !important",
-    transform: "translateY(-50%) !important",
+    width: "inherit",
+    height: "inherit",
+    left: 0,
+    position: "inherit",
+    transform: "inherit",
   },
   gridBar: {
     borderRadius: 14,
+    bottom: "-17%",
   },
   popupList: {
     display: "flex",
@@ -91,6 +98,7 @@ const FavoritToolTip = (props) => {
 
 function CollectionCard(props) {
   const { movie, collectionName, removeMovie } = props;
+
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -101,9 +109,7 @@ function CollectionCard(props) {
   };
 
   const removeMovieHandler = async () => {
-    // const type = `DELETE_${name}_MOVIE`;
     await removeMovieFromList(movie.id, collectionName, removeMovie);
-    // removeMovie(movie.id, type);
     console.log("remove");
   };
 
@@ -131,8 +137,11 @@ function CollectionCard(props) {
   const isReleased = Date.now() - Date.parse(movie.release_date) > 0;
 
   return (
-    <GridListTile className={classes.gridCard}>
-      <img src={moviePoster} alt={movie.title} className={classes.gridImg} />
+    <GridListTile
+      className={classes.gridCard}
+      classes={{ tile: classes.gridTile, imgFullHeight: classes.gridImg }}
+    >
+      <img src={moviePoster} alt={movie.title} />
       <GridListTileBar
         className={classes.gridBar}
         title={movie.title}
@@ -140,7 +149,7 @@ function CollectionCard(props) {
           <span className={ratingClass}>
             {isReleased
               ? `Average rating ${movie.vote_average}`
-              : "Has not released"}
+              : "Has not been released"}
           </span>
         }
         actionIcon={

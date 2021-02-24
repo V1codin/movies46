@@ -27,6 +27,8 @@ function UserAccount(props) {
 
   const isLogged = localStorage.getItem("isLogged");
 
+  window.onscroll = null;
+
   if (
     isLogged === "false" ||
     isLogged === null ||
@@ -36,11 +38,11 @@ function UserAccount(props) {
     return <ErrorLoginPage history={history} />;
   }
 
-  const collectionName = Object.keys(movies);
+  const collectionNames = Object.keys(movies);
 
   return (
     <div className={style.app}>
-      {collectionName.map((item, ind) => {
+      {collectionNames.map((item, ind) => {
         return (
           <Collection
             key={ind * Math.random() + 1}
