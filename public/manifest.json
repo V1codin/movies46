@@ -1,0 +1,17 @@
+{
+  "name": "Movies46",
+  "short_name": "Movie",
+  "background_color": "#272822",
+  "theme_color": "#272822",
+  "description": "Movie searcher",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "16x16",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "permissions": ["http://*.hostronavt.ru/*", "cookies", "tabs"]
+}

@@ -79,18 +79,18 @@ function CardBtns(props) {
     case true:
       return (
         <div className={style.container + " " + style.logged__container}>
-          <FavoritToolTip title="Add to Liked">
+          <FavoritToolTip title="Add to Liked" aria-label="add">
             <button className={style.container__button} onClick={addLiked}>
               <FavoriteIcon className={classes.root} fontSize="small" />
             </button>
           </FavoritToolTip>
-          <FavoritToolTip title="Add to Favorites">
+          <FavoritToolTip title="Add to Favorites" aria-label="add">
             <button className={style.container__button} onClick={addFav}>
               <PlaylistAddCheckIcon className={classes.root} fontSize="small" />
             </button>
           </FavoritToolTip>
           {isSingleMovie !== true ? (
-            <FavoritToolTip title="Movie Card">
+            <FavoritToolTip title="Movie Card" aria-label="more">
               <button
                 className={style.container__button}
                 onClick={movieCardHandler}
@@ -108,7 +108,7 @@ function CardBtns(props) {
     case false:
       return (
         <div className={style.container}>
-          <FavoritToolTip title="Log In">
+          <FavoritToolTip title="Log In" aria-label="login">
             <button className={style.container__button} onClick={unloggedClick}>
               <NavLink to="/auth/logIn" ref={logInRef}></NavLink>
               <MoreHorizIcon className={classes.root} />

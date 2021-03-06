@@ -13,7 +13,9 @@ export default function Router() {
   return (
     <Switch>
       <Route exact path="/" component={Pop} />
-      {/* <Route exact path="/" component={Home} /> */}
+      {/* 
+      <Route exact path="/" component={Home} /> 
+    */}
       <Route exact path="/popular" component={Pop} />
       <Route exact path="/rating" component={Rate} />
       <Route exact path="/profile" component={Profile} />

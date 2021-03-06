@@ -3,8 +3,8 @@ import FormModule from "./module";
 
 import { useState } from "react";
 import {
-  signInHandler,
-  createUser,
+  // signInHandler,
+  // createUser,
   loginRequest,
 } from "./setts/registrationAction";
 import { getFormData, clearData, errorHandler } from "./setts/dataHelper";
@@ -35,17 +35,12 @@ function Auth(props) {
 
   if (isLogged === true) return null;
 
-  const logoutHandler = ((dispatch) => {
-    return (wrapper) => {
-      return wrapper(dispatch);
-    };
-  })(logoutAction);
-
   const submit = (e) => {
     e.preventDefault();
 
     const data = getFormData(e.target);
     if (type === "signIn") {
+      /*
       signInHandler({
         setLabelState,
         createUser,
@@ -56,6 +51,7 @@ function Auth(props) {
         setError,
         errorHandler,
       });
+      */
       return;
     } else if (type === "logIn") {
       loginRequest(
@@ -65,7 +61,7 @@ function Auth(props) {
         history,
         errorHandler,
         setError,
-        logoutHandler
+        logoutAction
       );
     }
 

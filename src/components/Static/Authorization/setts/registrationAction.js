@@ -1,4 +1,7 @@
 import validation from "./validation";
+import Cookies from "js-cookie";
+
+import { serverLogin } from "../../../../system/Setts/server/actions";
 import {
   db,
   logoutWrapper,
@@ -101,7 +104,7 @@ export const loginRequest = async (
       const liked = rawLiked.data().data;
       const favorites = rawFav.data().data;
 
-      const collaction = {
+      const collection = {
         liked,
         favorites,
       };
@@ -117,7 +120,7 @@ export const loginRequest = async (
 
           dispatch({
             type: "GET_USER_MOVIES",
-            userData: collaction,
+            userData: collection,
           });
 
           localStorage.setItem("isLogged", true);

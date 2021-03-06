@@ -2,9 +2,13 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
+import Cookies from "js-cookie";
+
 const {
   REACT_APP_API__KEY_FIREBASE_AUTH,
   REACT_APP_AUTH__DOMAIN_FIREBASE_AUTH,
+  REACT_APP_SERVER_LINK,
+
   REACT_APP_STORAGE__BUCKET_FIREBASE_AUTH,
   REACT_APP_MESSAGING__SENDER__ID_FIREBASE_AUTH,
   REACT_APP_APP__ID_FIREBASE_AUTH,
@@ -20,6 +24,9 @@ const firebaseConfig = {
 };
 
 export const db = firebase.initializeApp(firebaseConfig, "Movies 46");
+
+db.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+
 export const firestore = db.firestore();
 export const usersCollection = firestore.collection("users");
 

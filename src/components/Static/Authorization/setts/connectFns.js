@@ -8,9 +8,10 @@ export const mDtP = (dispatch) => {
   return {
     dispatchWrapper: dispatch,
     logoutAction: () => {
-      return dispatch({
+      dispatch({
         type: "LOGOUT",
       });
+      return;
     },
   };
 };
