@@ -109,7 +109,6 @@ export const loginRequest = async (
         favorites,
       };
 
-      const logout = logoutHandler(logoutWrapper);
 
       db.auth().onAuthStateChanged((curUser) => {
         if (curUser) {
@@ -136,7 +135,7 @@ export const loginRequest = async (
           }
         } else {
           console.log("log out");
-          logout();
+          logoutHandler();
         }
       });
     }
