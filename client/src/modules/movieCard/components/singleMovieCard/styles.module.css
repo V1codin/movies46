@@ -1,0 +1,76 @@
+.container {
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  word-break: break-word;
+}
+
+.moviePoster {
+  width: 100%;
+}
+
+.movieCard {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.rate {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+.circle {
+  margin-right: 5px;
+  width: 10px;
+  border-radius: 50%;
+  border: 1px solid #808080;
+  background-color: #fff;
+  height: 10px;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.info,
+.section {
+  margin: 0;
+}
+
+.section {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 0;
+}
+
+.section::after {
+  content: "";
+  margin-top: 5px;
+  width: 100%;
+  height: 2px;
+  background-color: #9c9c9c;
+}
+
+.card {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.article {
+  color: #3a99ec;
+}
+
+.text_green {
+  color: #12c012;
+}
+
+.text_red {
+  color: #e02e2e;
+}

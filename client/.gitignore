@@ -1,11 +1,7 @@
 /node_modules
-/public
+dist
+/src/modules/movieCard/components/singleCollectionCard
 
-/config/serviceAccountSetts.json
-nodemon.json
-/src/modules/request.js
-
-# dependencies
 /.pnp
 .pnp.js
 
@@ -22,6 +18,4 @@ nodemon.json
 .env.production.local
 
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 .env

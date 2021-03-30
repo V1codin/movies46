@@ -1,0 +1,9 @@
+.app {
+  width: inherit;
+  opacity: 0;
+}
+
+.opacity {
+  opacity: 1;
+  transition: opacity 1.3s ease;
+}

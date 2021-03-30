@@ -1,0 +1,68 @@
+@import "~materialize-css/dist/css/materialize.min.css";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+body {
+  margin: 0;
+  background-color: #272822;
+  font-family: -apple-system, "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+a {
+  padding: 0 !important;
+}
+a:hover {
+  background-color: initial !important;
+}
+nav {
+  box-shadow: unset !important;
+  height: 56px !important;
+  line-height: 56px !important;
+  background-color: inherit !important;
+}
+.progress {
+  z-index: 8000;
+  top: 0;
+  left: 0;
+  position: fixed !important;
+  margin: 0 !important;
+}
+input {
+  color: #fff !important;
+}
+input:focus {
+  border-bottom: 1px solid #d6ee02 !important;
+  box-shadow: unset !important;
+}
+input:focus::placeholder {
+  color: #d6ee02 !important;
+}
+input::placeholder {
+  color: #949494 !important;
+}
+
+.alert-fail {
+  color: #cf0000;
+  font-weight: bold;
+}
+.alert-success {
+  color: #3bcf00;
+  font-weight: bold;
+}

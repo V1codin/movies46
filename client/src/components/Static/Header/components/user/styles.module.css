@@ -1,0 +1,86 @@
+.container {
+  margin: 0 0 0 15px;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+}
+.img {
+  border-radius: 50%;
+  color: transparent;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  text-align: center;
+}
+
+.menu {
+  background-color: #000000a1;
+  margin: 0;
+  display: none;
+  width: 125px !important;
+  height: 170px !important;
+  overflow-y: auto;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  transform-origin: 0 0;
+  border-radius: 4px;
+}
+
+.menu > li {
+  width: inherit;
+}
+
+.menu > a {
+  width: 120px;
+}
+
+.link {
+  display: block;
+  position: relative;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+}
+
+.link:after {
+  display: block;
+  position: absolute;
+  bottom: 2px;
+  left: 15%;
+  width: 0;
+  height: 2px;
+  background-color: #00f335;
+  content: "";
+  transition: width 0.2s ease-out;
+}
+
+.link:hover::after,
+.link_active::after {
+  width: 70%;
+}
+
+.link:hover::after {
+  background-color: #00a650;
+}
+.link_active:hover::after {
+  background-color: #ff0000;
+}
+
+@media (max-width: 900px) {
+  .container {
+    margin: 0 auto;
+    padding: 5px;
+  }
+  .menu {
+    top: 165px !important;
+    left: -125px !important;
+  }
+}
